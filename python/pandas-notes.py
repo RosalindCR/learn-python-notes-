@@ -42,11 +42,10 @@ df = pd.DataFrame(np.random.randn(4, 5), columns=['A', 'B', 'C', 'D', 'E'])
 #1 -0.504482 -0.344286 -0.050845 -0.811277 -0.298181
 #2  0.542788  0.207708  0.651379 -0.656214  0.507595
 #3 -0.249410  0.131549 -2.198480 -0.437407  1.628228
-#计算各列数据总和并作为新列添加到末尾
-#Calculate the sum of each column of data and add it as a new column to the end
 
+#Calculate the sum of each column of data and add it as a new column to the end
 df['Col_sum'] = df.apply(lambda x: x.sum(), axis=1)
-#计算各行数据总和并作为新行添加到末尾
+
 #Calculate the sum of each row of data and add it as a new line to the end
 df.loc['Row_sum'] = df.apply(lambda x: x.sum())
 #                A         B         C         D         E   Col_sum
@@ -73,36 +72,39 @@ print(str(result-now))
 
 #==============================================================================
 df.info()
-#查看数据类型及内存使用情况#
+#View the data type and memory usage#
 #==============================================================================
 
 #==============================================================================
-# 保留小数点两位
-#方法一
-df['A']=df['A'].map('{:,.0f}'.format) #所有的保留两位小数点
-#方法二
-df[['A','B']]=np.round([['A','B']].decimals=2)#没有超过两位小数点默认保留一位，其余保留两位
-df[['A','B']]=df[['A','B']].apply(lambda x:pd.Series.round(x,3))#直接在原表进行更改
-#方法三
-df.round(2)#整体保留两位小数点
-df1=df.round({'A':2,'B':3})#指定列保留小数点（不会改变原表，需另赋值）
+# round 2
+#method 1
+df['A']=df['A'].map('{:,.0f}'.format)
+#method 2
+df[['A','B']]=np.round([['A','B']].decimals=2)
+df[['A','B']]=df[['A','B']].apply(lambda x:pd.Series.round(x,2))
+#method 3
+df.round(2)
+##
+df1=df.round({'A':2,'B':3})#not change the original table
 #==============================================================================
 
 #==============================================================================
-# 移除重复数据(不会改变原表,如果两笔都是相同的，则保留第一笔)
+# Remove duplicate data (do not change the original table, if the two are the same, then leave the first pen)
 data = pd.DataFrame({'k1': ['one'] * 3 + ['two'] * 4,
                   'k2': [1, 1, 2, 3, 3, 4, 4]})
-#判断各行是否是重复行
-data.duplicated()#返回的布尔值
-#移除重复hang
+#To determine whether the line is repeat line
+data.duplicated()#return boolean
+#Remove duplicate rows
 data.drop_duplicates()
-#删除指定列的重复值
+#Delete the duplicate value for the specified column
 data.drop_duplicates(['k1'])
-data.drop_duplicates(['k1'],keep='last')#相同的值保留最后一个
+data.drop_duplicates(['k1'],keep='last')#The same value retains the last one
 #==============================================================================
 
 #==============================================================================
-# 替换
+# replace
 #==============================================================================
 df['A'] = df['A'].str.replace(',','.')
-df['A'].str.contains('s')#匹配字符串#
+
+# Match string #
+df['A'].str.contains('s')

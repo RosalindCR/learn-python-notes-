@@ -1,1 +1,59 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jan  2 09:10:48 2017
+
+@author: CR
+"""
+
+#==============================================================================
+#dict按照指定的顺序排列#
+#enumerate函数是将可遍历的对象组成一个索引序列#
+lst = {'NEW':3,'>45 days':4,'>7days':3}
+order = ["NEW", ">7days", "1", ">45 days","6"]
+indexes = dict((idfield, index) for (index, idfield) in enumerate(order))
+print (sorted(lst, key=lambda d: indexes[d]))
+#In [329]:['NEW', '>7days', '>45 days'] 
+test=sorted(lst, key=lambda d: indexes[d])
+value=[]
+for i in range(len(test)):
+    print(test[i])
+    value.append(lst[test[i]])
+#In [330]:[3,3,4]    
+#==============================================================================
+
+#==============================================================================
+#用enumerate代替传统的循环
+list1=[12,3,4,5]
+for i in range(len(list1)):
+    print(i,list1[i])
+
+for i,j in enumerate(list1):
+    print(i,j)
+#指定索引起始值
+for index, item in enumerate(list1, 1):
+    print index, item
+#=============================================================================
+
+count = -1 
+for index, line in enumerate(open(filepath,'r'))： 
+    count += 1
+'替换为'
+count = len(open(filepath, 'r').readlines())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

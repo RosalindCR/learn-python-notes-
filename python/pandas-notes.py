@@ -35,38 +35,31 @@ df.name.unique()
 
 
 #==============================================================================
-# 生成DataFrame数据
-
-
+# Create a Dataframe
 df = pd.DataFrame(np.random.randn(4, 5), columns=['A', 'B', 'C', 'D', 'E'])
-#DataFrame数据预览：
-
 #          A         B         C         D         E
 #0  0.673092  0.230338 -0.171681  0.312303 -0.184813
 #1 -0.504482 -0.344286 -0.050845 -0.811277 -0.298181
 #2  0.542788  0.207708  0.651379 -0.656214  0.507595
 #3 -0.249410  0.131549 -2.198480 -0.437407  1.628228
 #计算各列数据总和并作为新列添加到末尾
+#Calculate the sum of each column of data and add it as a new column to the end
 
 df['Col_sum'] = df.apply(lambda x: x.sum(), axis=1)
 #计算各行数据总和并作为新行添加到末尾
-
+#Calculate the sum of each row of data and add it as a new line to the end
 df.loc['Row_sum'] = df.apply(lambda x: x.sum())
-#最终数据结果：
-
 #                A         B         C         D         E   Col_sum
 #0        0.673092  0.230338 -0.171681  0.312303 -0.184813  0.859238
 #1       -0.504482 -0.344286 -0.050845 -0.811277 -0.298181 -2.009071
 #2        0.542788  0.207708  0.651379 -0.656214  0.507595  1.253256
 #3       -0.249410  0.131549 -2.198480 -0.437407  1.628228 -1.125520
 #Row_sum  0.461987  0.225310 -1.769627 -1.592595  1.652828 -1.022097
-
 #==============================================================================
 
 
 #==============================================================================
-#批量读取文件，当数据越大时，比较有优化的提升
-#并没有发现什么优势#
+#Batch read the file, when the larger the data, the more optimized upgrade
 now=datetime.datetime.now()
 table_test=pd.read_sql_table("inventory_pipeline_temp",engine_df,chunksize=10000)
 chunks=[]
